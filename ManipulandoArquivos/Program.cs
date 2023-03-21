@@ -4,41 +4,56 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        string name;
-        string file;
-        char gender;
 
-        Person person1 = CreatePerson();
-        Person person2 = CreatePerson();
 
-        WriteFile(person1);
+        string fixedtext = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\nProin fermentum leo vel orci porta non pulvinar neque.\nVivamus arcu felis bibendum ut tristique et egestas quis.\nMalesuada proin libero nunc consequat interdum.\nQuisque sagittis purus sit amet.";
 
-        WriteFile(person2);
+        WriteFile(fixedtext);
 
-        Console.Clear();
-
-        Console.Write("Informe o nome do arquivo a ser lido: ");
-        file = Console.ReadLine();
-
-        var texto = ReadFile(file);
+        var texto = ReadFile("peste.txt");
 
         Console.WriteLine(texto);
 
-        void WriteFile(Person person)
+        Console.Write("Quantas linhas você quer ler? ");
+        var lines = int.Parse(Console.ReadLine());
+        
+        var txt = ReadFileLines(lines);
+
+        Console.WriteLine(txt);
+
+        string ReadFileLines(int l)
+        {
+            StreamReader sr = new("peste.txt");
+            string txt = "";
+
+            List<string> srlist = new();
+            for (int i = 0; i < l; i++)
+            {
+                txt += sr.ReadLine() + "\n";
+            }
+            
+            //foreach (var item in srlist)
+            //{
+            //    txt += item.ToString() + "\n";
+            //}
+            
+            return txt;
+        }
+
+        void WriteFile(string text)
         {
             try
             {
-                if (File.Exists("backup.txt"))
+                if (File.Exists("peste.txt"))
                 {
-                    var temp = ReadFile("backup.txt");
-                    StreamWriter sw = new("backup.txt");
-                    sw.WriteLine(temp + person.ToString());
+                    StreamWriter sw = new("peste.txt");
+                    sw.WriteLine(text);
                     sw.Close();
                 }
                 else
                 {
-                    StreamWriter sw = new("backup.txt");
-                    sw.WriteLine(person.ToString());
+                    StreamWriter sw = new("peste.txt");
+                    sw.WriteLine(text);
                     sw.Close();
                 }
             }
