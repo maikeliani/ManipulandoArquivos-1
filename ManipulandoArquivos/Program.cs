@@ -21,16 +21,23 @@ internal class Program
 
         Console.WriteLine(txt);
 
+
         string ReadFileLines(int l)
         {
             StreamReader sr = new("peste.txt");
             string txt = "";
 
-            List<string> srlist = new();
-            for (int i = 0; i < l; i++)
+            // List<string> srlist = new();
+            //for (int i = 0; i < l; i++)
+            //{
+            //    txt += sr.ReadLine() + "\n";
+            //}
+
+            do
             {
                 txt += sr.ReadLine() + "\n";
-            }
+
+            } while (sr.EndOfStream == false);
             
             //foreach (var item in srlist)
             //{
